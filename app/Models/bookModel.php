@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class bookModel extends Model
 {
     use HasFactory;
+
+    public function scopeFilter($query, array $filters){
+        if($filters['keyword'] ?? false){
+        $query->where('bookName','like','%' . request('keyword') . '%');
+        }
+    }
 }

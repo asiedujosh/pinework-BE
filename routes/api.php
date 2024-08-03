@@ -52,6 +52,8 @@ Route::delete('/deleteClasses/{id}',[classController::class, 'deleteClasses']);
 Route::get('/getBook',[bookController::class, 'index']);
 Route::get('/getAuthorBooks',[bookController::class, 'getAuthorBooks']);
 Route::get('/searchBook', [bookController::class,'searchBook']);
+Route::get('/countBooksNotPublishedByAuthor/{id}', [bookController::class,'countBooksNotPublishedByAuthor']);
+Route::get('/countBooksPublishedByAuthor/{id}', [bookController::class,'countBooksPublishedByAuthor']);
 Route::get('/searchAuthorBook', [bookController::class,'searchAuthorBook']);
 Route::post('/storeBook',[bookController::class, 'storeBook']);
 Route::put('/updateBook/{id}',[bookController::class, 'updateBook']);

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Traits\HttpResponses;
 use App\Models\bookModel;
+use App\Models\pageModel;
+use App\Models\questionModel;
 
 use Illuminate\Http\Request;
 
@@ -22,6 +24,21 @@ class bookController extends Controller
               'last_page' => $bookModel->lastPage()  
             ]
         ]);
+    }
+
+
+    public function countBooksNotPublishedByAuthor(Request $request, $id){
+        $countBooksNotPublished = bookModel::where('authorId', $id)->where('status', '!=', 'live')->count();
+        return $this->success([
+          'data' => $countBooksNotPublished
+        ]);
+    }
+
+    public function countBooksPublishedByAuthor(Request $request, $id){
+        $countBooksPublished = bookModel::where('authorId', $id)->where('status', 'live')->count();
+        return $this->success([
+            'data' => $countBooksPublished
+          ]);
     }
 
 
@@ -62,7 +79,7 @@ class bookController extends Controller
         $book = new bookModel;
         $book->bookName = $request->bookName;
         $book->bookType = $request->bookType;
-        $book->class = $request->class;
+        $book->class = $request->classId;
         $book->description = $request->description;
         $book->authorId = $request->authorId;
         $book->coverImage = $request->coverImage;
@@ -80,10 +97,9 @@ class bookController extends Controller
        $formField = [
         'bookName' => $request->bookName,
         'bookType' => $request->bookType,
+        'class' => $request->classId,
         'description' => $request->description,
-        'authorId' => $request->authorId,
-        'coverImage' => $request->coverImage,
-        'status' => $request->status,
+        'coverImage' => $request->imageUpload,
        ];
 
        $res = bookModel::where('id', $id)->update($formField);
@@ -96,7 +112,7 @@ class bookController extends Controller
 
     public function updateBookStatus(Request $request, $id){
         $formField = [
-           'status' => $request->status 
+           'status' => $request->status
         ];
 
         $res = bookModel::where('id', $id)->update($formField);
@@ -109,6 +125,8 @@ class bookController extends Controller
 
 
     public function deleteBook(Request $request, $id){
+        $resQues = questionModel::where('bookId', $id)->delete();
+        $resPage = pageModel::where('bookId', $id)->delete();
         $res = bookModel::where('id', $id)->delete();
         if($res){
             return $this->success([
