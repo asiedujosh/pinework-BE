@@ -13,8 +13,10 @@ return new class extends Migration
     {
         Schema::create('subscription_models', function (Blueprint $table) {
             $table->id();
+            $table->string('authorId');
             $table->string('userId');
             $table->string('bookId');
+            $table->string('bookName');
             $table->string('institutionId');
             $table->string('amount');
             $table->string('date');

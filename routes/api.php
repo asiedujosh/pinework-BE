@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
+use App\Http\Controllers\subscriptionController;
 use App\Http\Controllers\bookTypeController;
 use App\Http\Controllers\bookController;
 use App\Http\Controllers\pageController;
@@ -51,7 +52,9 @@ Route::delete('/deleteClasses/{id}',[classController::class, 'deleteClasses']);
 /** Books Routes */
 Route::get('/getBook',[bookController::class, 'index']);
 Route::get('/getAuthorBooks',[bookController::class, 'getAuthorBooks']);
+Route::get('/getAuthorPublish',[bookController::class, 'getAuthorPublish']);
 Route::get('/searchBook', [bookController::class,'searchBook']);
+Route::get('/searchAuthorPublish', [bookController::class, 'searchAuthorPublish']);
 Route::get('/countBooksNotPublishedByAuthor/{id}', [bookController::class,'countBooksNotPublishedByAuthor']);
 Route::get('/countBooksPublishedByAuthor/{id}', [bookController::class,'countBooksPublishedByAuthor']);
 Route::get('/searchAuthorBook', [bookController::class,'searchAuthorBook']);
@@ -60,6 +63,11 @@ Route::put('/updateBook/{id}',[bookController::class, 'updateBook']);
 Route::put('/updateBookStatus/{id}',[bookController::class, 'updateBookStatus']);
 Route::delete('/deleteBook/{id}',[bookController::class, 'deleteBook']);
 /** End Books Routes **/
+
+/** Subscription Routes */
+Route::get('/getAuthorSubscribers',[subscriptionController::class, 'getAuthorSubscribers']);
+Route::get('/countAuthorSubscribers/{id}', [subscriptionController::class,'countAuthorSubscribers']);
+/**End Subscription Routes */
 
 /** Pages Routes */
 Route::get('/getBookPage',[pageController::class, 'getBookPage']);
