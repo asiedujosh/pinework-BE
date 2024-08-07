@@ -9,6 +9,7 @@ use App\Http\Controllers\bookController;
 use App\Http\Controllers\pageController;
 use App\Http\Controllers\classController;
 use App\Http\Controllers\authorController;
+use App\Http\Controllers\schoolController;
 use App\Http\Controllers\questionController;
 use App\Enums\TokenAbility;
 
@@ -29,6 +30,11 @@ Route::post('/login', [userController::class, 'login']);
 /** Author */
 Route::post('/storeAuthor',[authorController::class, 'storeAuthor']);
 Route::get('/authorInfo/{id}',[authorController::class, 'getAuthorInfo']);
+/** End Author */
+
+/** School */
+Route::post('/storeSchool',[schoolController::class, 'storeSchool']);
+Route::get('/schoolInfo/{id}',[schoolController::class, 'getSchoolInfo']);
 
 /** Book Type Routes */
 Route::get('/getBookType',[bookTypeController::class, 'index']);
@@ -68,6 +74,11 @@ Route::delete('/deleteBook/{id}',[bookController::class, 'deleteBook']);
 Route::get('/getAuthorSubscribers',[subscriptionController::class, 'getAuthorSubscribers']);
 Route::get('/countAuthorSubscribers/{id}', [subscriptionController::class,'countAuthorSubscribers']);
 /**End Subscription Routes */
+
+/** Comment Routes */
+Route::get('/getAuthorComments',[commentController::class, 'getAuthorBookComment']);
+Route::get('/countAuthorComment/{id}', [commentController::class, 'countAuthorComment']);
+/**End Comment Routes */
 
 /** Pages Routes */
 Route::get('/getBookPage',[pageController::class, 'getBookPage']);

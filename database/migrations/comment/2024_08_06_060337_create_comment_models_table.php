@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('institution_models', function (Blueprint $table) {
+        Schema::create('comment_models', function (Blueprint $table) {
             $table->id();
+            $table->string('authorId');
             $table->string('userId');
-            $table->string('institutionName');
-            $table->string('momoNumber');
-            $table->string('otherNo')->nullable();
-            $table->string('email')->unique();
+            $table->string('bookId');
+            $table->string('bookName');
+            $table->longText('comment');
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('institution_models');
+        Schema::dropIfExists('comment_models');
     }
 };
